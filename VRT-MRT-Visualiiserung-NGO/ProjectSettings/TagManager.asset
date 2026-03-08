@@ -5,14 +5,36 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
+  - QDSUIBackplateGradient
+  - QDSUIBorderlessButton
+  - QDSUIIcon
+  - QDSUISharedThemeColor
+  - QDSUIDestructiveButton
+  - QDSUISecondaryButton
+  - QDSUIPrimaryButton
+  - QDSUIAccentColor
+  - QDSUITextInvertedColor
+  - QDSUITextSecondaryInvertedColor
+  - QDSUIToggleButton
+  - QDSUITextSecondaryColor
+  - QDSUITooltip
+  - QDSUIToggleBorderlessButton
+  - QDSUITextInputField
+  - QDSUISection
+  - QDSUIToggleSwitch
+  - QDSUIToggleCheckboxRadio
+  - PlayerViewWindow
+  - LoadingIcon
+  - MRIObject
+  - Drawing
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Overlay UI
   - Water
   - UI
-  - 
+  - Interactable
   - 
   - 
   - 
