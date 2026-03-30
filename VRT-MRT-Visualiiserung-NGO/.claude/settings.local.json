@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -l \"class \" \"D:/DIPLOMARBEIT/DA_vr_mrt_unity/VRT-MRT-Visualiiserung-NGO/Assets/Scripts/\"*.cs)"
+    ]
+  }
+}

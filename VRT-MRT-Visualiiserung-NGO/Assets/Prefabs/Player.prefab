@@ -792,7 +792,9 @@ MonoBehaviour:
   ikRightHandTarget: {fileID: 6311377126752116040}
   headPositionOffset: {x: 0, y: 0, z: 0}
   headRotationOffset: {x: 0, y: 0, z: 0}
+  leftHandPositionOffset: {x: 0, y: 0, z: 0}
   leftHandRotationOffset: {x: -60, y: 0, z: 180}
+  rightHandPositionOffset: {x: 0, y: 0, z: 0}
   rightHandRotationOffset: {x: -60, y: 0, z: 180}
   avatarMeshRenderers:
   - {fileID: 2261460773384527053}

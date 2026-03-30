@@ -23,13 +23,34 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: b9adf7a4adc3785428265de3303e0505, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 3a7df7750779c1d48a8389b8a7e2b3dc, type: 3}
+        m_Texture: {fileID: 2800000, guid: 1a7a4962f5baa8c4e9c9464d080d8d8b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MatCap:
+        m_Texture: {fileID: 2800000, guid: 1f9a546199d10bf4a9636c9819c5243d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _BumpScale: 0.71
+    - _DetailStrength: 0
+    - _MatCapStrength: 1.065
+    - _RimPower: 2.61
+    - _RimStrength: 0.35
+    - _SpecPower: 2.08
+    - _VertexColorBlend: 0
     m_Colors:
     - _Color: {r: 0.9547169, g: 0.44766763, b: 0.36567453, a: 1}
+    - _RimColor: {r: 0.6, g: 0.85, b: 1, a: 1}
+    - _SpecColor2: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

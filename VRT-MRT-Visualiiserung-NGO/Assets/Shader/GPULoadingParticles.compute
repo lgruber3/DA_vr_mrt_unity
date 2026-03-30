@@ -1,0 +1,85 @@
+#pragma kernel CSUpdate
+
+struct Particle
+{
+    float3 scattered;   // random start position
+    float3 assembled;   // target position (object shape)
+    float3 drift;       // per-particle noise seed
+    float3 position;    // current position 
+    float4 color;       // current color 
+    float  size;        // current size
+};
+
+RWStructuredBuffer<Particle> _Particles;
+
+float _Progress;        // 0-1 download progress
+float _Time;
+float _DeltaTime;
+float _CollapseT;       // 0 = not collapsing, >0 = collapsing
+float _DriftIntensity;
+float _OrbitSpeed;
+float _ParticleSize;
+float4 _ColorStart;
+float4 _ColorEnd;
+uint _ParticleCount;
+
+// hash-based gpu noise
+float hash(float n)
+{
+    return frac(sin(n) * 43758.5453123);
+}
+
+float noise(float x)
+{
+    float i = floor(x);
+    float f = frac(x);
+    f = f * f * (3.0 - 2.0 * f);
+    return lerp(hash(i), hash(i + 1.0), f) - 0.5;
+}
+
+[numthreads(256, 1, 1)]
+void CSUpdate(uint3 id : SV_DispatchThreadID)
+{
+    if (id.x >= _ParticleCount) return;
+
+    Particle p = _Particles[id.x];
+
+    // Ease-in-out
+    float t = _Progress * _Progress * (3.0 - 2.0 * _Progress);
+
+    // Lerp between scattered and assembled
+    float3 target = lerp(p.scattered, p.assembled, t);
+
+    // Organic drift (fades as progress increases)
+    float driftScale = (1.0 - t) * _DriftIntensity;
+    float time = _Time;
+    float3 drift = float3(
+        noise(p.drift.x + time * _OrbitSpeed),
+        noise(p.drift.y + time * _OrbitSpeed * 1.1),
+        noise(p.drift.z + time * _OrbitSpeed * 0.9)
+    ) * driftScale;
+
+    // Slow orbit (fades with progress)
+    float idx = (float)id.x;
+    float angle = time * _OrbitSpeed * (1.0 + fmod(idx, 5.0) * 0.2);
+    float3 orbit = float3(sin(angle), 0, cos(angle)) * 0.05 * (1.0 - t);
+
+    p.position = target + drift + orbit;
+
+    // Color
+    p.color = lerp(_ColorStart, _ColorEnd, t);
+
+    // Size
+    p.size = _ParticleSize;
+
+    // Final collapse animation
+    if (_CollapseT > 0.0)
+    {
+        float ct = _CollapseT * _CollapseT;
+        p.position = lerp(p.position, float3(0, 0, 0), ct);
+        p.size = _ParticleSize * (1.0 - _CollapseT);
+        p.color.a *= (1.0 - _CollapseT);
+    }
+
+    _Particles[id.x] = p;
+}

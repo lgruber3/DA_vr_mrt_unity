@@ -25,7 +25,14 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Density: 0.2
+    - _Alpha: 0.163
+    - _BackgroundDarken: 0.5
+    - _Boost: 2
+    - _Darken: 0.6
+    - _Density: 0.12
+    - _MinAlpha: 0.159
+    - _RimPower: 4.89
+    - _RimStrength: 1.19
     m_Colors:
     - _Color: {r: 0.32721174, g: 1, b: 0.19999999, a: 1}
   m_BuildTextureStacks: []

@@ -4,14 +4,14 @@ Shader "Medical/Surface_Curvature"
     Properties
     {
         [Header(Thermal Colormap)]
-        _ColdColor  ("Cold  (edge-on / recessed)", Color) = (0.05, 0.20, 0.90, 1)
-        _MidColor   ("Mid   (45-degree / neutral)", Color) = (0.10, 0.85, 0.40, 1)
-        _WarmColor  ("Warm  (facing / prominent)",  Color) = (0.95, 0.18, 0.05, 1)
+        _ColdColor ("Cold  (edge-on / recessed)", Color) = (0.05, 0.20, 0.90, 1)
+        _MidColor ("Mid   (45-degree / neutral)", Color) = (0.10, 0.85, 0.40, 1)
+        _WarmColor ("Warm  (facing / prominent)",  Color) = (0.95, 0.18, 0.05, 1)
 
         [Header(Shading)]
-        _Contrast        ("Gradient Contrast",    Range(0.5, 6.0)) = 2.0
-        _AmbientStrength ("Ambient Fill",         Range(0.0, 1.0)) = 0.25
-        _LightDir        ("Key Light Direction",  Vector)          = (0.5, 1.0, 0.5, 0)
+        _Contrast ("Gradient Contrast", Range(0.5, 6.0)) = 2.0
+        _AmbientStrength ("Ambient Fill", Range(0.0, 1.0)) = 0.25
+        _LightDir ("Key Light Direction",  Vector) = (0.5, 1.0, 0.5, 0)
     }
 
     SubShader
@@ -49,7 +49,7 @@ Shader "Medical/Surface_Curvature"
             float  _AmbientStrength;
             float4 _LightDir;
 
-            // Branchless two-segment lerp: cold → mid → warm as t goes 0 → 1
+            // Branchless two-segment lerp: cold -> mid -> warm as t goes 0 -> 1
             fixed3 ThermalRamp(float t)
             {
                 fixed3 lo = lerp(_ColdColor.rgb, _MidColor.rgb,  saturate(t * 2.0));
@@ -79,12 +79,10 @@ Shader "Medical/Surface_Curvature"
                 // View-facing factor: 1 = surface faces viewer, 0 = edge-on
                 float facing = saturate(dot(N, V));
 
-                // Contrast curve — sharpens the gradient so mid-range anatomy
-                // stands out rather than everything looking uniformly warm.
+                // Contrast curve, sharpens the gradient
                 float t = pow(facing, _Contrast);
 
-                // Lambert diffuse for shape legibility — without this the
-                // colour alone makes depth hard to read in VR.
+                // Lambert diffuse for shape legibility
                 float3 L       = normalize(_LightDir.xyz);
                 float  diffuse = saturate(dot(N, L));
                 float  light   = _AmbientStrength + (1.0 - _AmbientStrength) * diffuse;
